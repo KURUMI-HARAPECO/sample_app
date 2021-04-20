@@ -11,11 +11,39 @@ class TodolistsController < ApplicationController
     # ２. データをデータベースに保存するためのsaveメソッド実行
     list.save
     # ３. トップ画面へリダイレクト
-    redirect_to '/top'
+    redirect_to todolist_path(list.id)
+    # showアクションにリダイレクトさせるには、名前付きルートを使用して、redirect_to todolist_path(list.id)
+    # todolist_pathを引数と呼び、引数には必ずidが必要になります。
   end
   # ここで、createアクション内の変数（list）に@がないことを不思議に感じるかもしれませんね。
   # @のついたインスタンス変数とローカル変数の違いについて、@のついているインスタンス変数はビューファイルへ受け渡すことができ、
   # 一方でローカル変数は、ビューファイルに受け渡しができません。
+
+  def index
+    @lists = List.all
+    # このインスタンス変数にはすべてのデータが取り出されて格納されるため、インスタンス変数名を複数形
+  end
+
+  def show
+    @list = List.find(params[:id])
+    # URLの/todolists/:id内の:idは、アクション内にparams[:id]と記述することで取得できます。
+    # 今回はレコード1件を取得するので、インスタンス変数名は単数形の「@list」
+  end
+
+  def edit
+    @list = List.find(params[:id])
+  end
+
+  def update
+    list = List.find(params[:id])
+    list.update(list_params)
+    redirect_to todolist_path(list.id)
+  end
+
+
+
+
+
 
   private
   def list_params

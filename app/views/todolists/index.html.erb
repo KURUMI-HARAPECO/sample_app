@@ -1,0 +1,9 @@
+<h1>投稿一覧</h1>
+<% @lists.each do |list| %>
+<!--配列がもつ要素を順番に取得して処理を実行したいときは、eachメソッド-->
+<p>タイトル</p>
+<!--<span>%= list.title %></span>を変更-->
+<!--<span>%= link_to list.title, "/todolists/#{list.id}" %></span>を変更-->
+<%= link_to list.title, todolist_path(list.id) %>
+<!--"/todolists/#{list.id}"をroutesの「名前付きルート」＝「todolist」を使う-->
+<% end %>

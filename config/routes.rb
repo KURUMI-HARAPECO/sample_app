@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   get 'todolists/new'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'top' => 'homes#top'
-  post 'todolist' => 'todolists#create'
+  post 'todolists' => 'todolists#create'
+  get 'todolists' => 'todolists#index'
+  get 'todolists/:id' => 'todolists#show', as: 'todolist'
+  # as: '名前' は「名前付きルート」といい、'todolists#show'の設定を、todolistとして利用できる」の意味になります
+  get 'todolists/:id/edit' => 'todolists#edit', as: 'edit_todolist'
+  patch 'todolists/:id' => 'todolists#update', as: 'update_todolist'
 
 
 
