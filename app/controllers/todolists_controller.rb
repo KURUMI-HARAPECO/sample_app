@@ -40,6 +40,14 @@ class TodolistsController < ApplicationController
     redirect_to todolist_path(list.id)
   end
 
+  def destroy
+    list = List.find(params[:id])
+    # データ（レコード）を1件取得
+    list.destroy
+    redirect_to todolists_path
+    # 一覧画面を指すtodolists_path（indexアクション）に設定
+  end
+
 
 
 
@@ -48,7 +56,7 @@ class TodolistsController < ApplicationController
   private
   def list_params
     # list_paramsではフォームで入力されたデータを受け取っています。
-    params.require(:list).permit(:title, :body)
+    params.require(:list).permit(:title, :body, :image)
     # paramsはRailsで送られてきた値を受け取るためのメソッド
     # requireで(:モデル名)ここでは:list)を指定し、
     # permitでキー（:title,:body）を指定しています。
